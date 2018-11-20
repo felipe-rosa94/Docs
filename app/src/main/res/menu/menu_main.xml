@@ -1,0 +1,30 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.felipe.docs.Activity.Main">
+    <item
+        android:id="@+id/item_card"
+        android:title="Cartões"
+        android:icon="@drawable/card"/>
+
+    <item
+        android:id="@+id/item_docs"
+        android:title="Docs"
+        android:icon="@drawable/docs"/>
+
+    <item
+        android:id="@+id/item_contas"
+        android:title="Contas"
+        android:icon="@drawable/bank"/>
+
+    <item
+        android:id="@+id/item_logins"
+        android:title="Logins"
+        android:icon="@drawable/logins"/>
+
+    <item
+        android:id="@+id/item_outros"
+        android:title="Outros"
+        android:icon="@drawable/outros"/>
+
+</menu>
