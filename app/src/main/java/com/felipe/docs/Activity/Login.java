@@ -39,7 +39,7 @@ public class Login extends AppCompatActivity {
                     Toast.makeText(getBaseContext(), "Senha Incorreta.", Toast.LENGTH_SHORT).show();
                     cont++;
                 } else {
-                    startActivity(new Intent(getBaseContext(), Home.class));
+                    startActivity(new Intent(getBaseContext(), MenuActivity.class));
                     ((InputMethodManager) getBaseContext().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(etSenha.getWindowToken(), 0);
                     finish();
                 }

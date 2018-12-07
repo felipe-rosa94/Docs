@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,7 +40,7 @@ public class Main extends AppCompatActivity {
                     db.Fields.Intro = "1000";
                     db.update(1);
                     Toast.makeText(Main.this, "Senha Salva com sucesso.", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getBaseContext(), Home.class));
+                    startActivity(new Intent(getBaseContext(), MenuActivity.class));
                     finish();
                 }
             }

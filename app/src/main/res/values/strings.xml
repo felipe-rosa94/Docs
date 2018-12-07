@@ -5,4 +5,17 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string-array name="tipos">
+        <item>Lazer</item>
+        <item>Combustivél</item>
+        <item>Roupa</item>
+        <item>Alimentação</item>
+        <item>Transporte</item>
+        <item>Futilidade</item>
+        <item>Itens Casa</item>
+        <item>Comida</item>
+    </string-array>
+
 </resources>

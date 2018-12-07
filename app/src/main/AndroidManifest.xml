@@ -30,6 +30,10 @@
             android:label="@string/title_activity_home"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activity.MenuActivity" />
+        <activity android:name=".Activity.Financas" />
+        <activity android:name=".Activity.Config" />
+        <activity android:name=".Activity.CriarConta"></activity>
     </application>
 
 </manifest>
