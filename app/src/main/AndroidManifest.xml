@@ -31,9 +31,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activity.MenuActivity" />
-        <activity android:name=".Activity.Financas" />
+        <activity android:name=".Activity.Etapa2" />
         <activity android:name=".Activity.Config" />
-        <activity android:name=".Activity.CriarConta"></activity>
+        <activity android:name=".Activity.CriarConta" />
+        <activity android:name=".Activity.Financas"></activity>
     </application>
 
 </manifest>

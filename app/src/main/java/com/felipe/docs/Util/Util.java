@@ -5,6 +5,10 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Util {
 
     private Context context;
@@ -44,4 +48,26 @@ public class Util {
         dlg.show();
         return retornDialog;
     }
+
+    public String data() {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
+
+    public String dataHora() {
+        // --- formas de formatação --- //
+        // dd/MM/yyyy HH:mm:ss:SSS ou yyyy-MM-dd HH:mm:ss ou etc.
+        //Você pode formatar na forma mais adequada
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss:SSS");
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
+
+    public String key() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
+
 }

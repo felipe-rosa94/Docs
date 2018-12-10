@@ -10,7 +10,7 @@ import android.util.Log;
 
 public class DBSalario {
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "salario.sqb";
     private static final String DATABASE_TABLE = "salario";
 
@@ -20,7 +20,7 @@ public class DBSalario {
     private static final String _SALARIO_MES = "SalarioMes";
     private static final String _DATA_QUINZENA = "DataQuinzena";
     private static final String _DATA_MES = "DataMes";
-    private static final String _EMAILS = "Emails";
+    private static final String _DIA_FECHAMENTO = "DiaFechamento";
     private static final String _CONTAS = "Contas";
     private static final String _OUTROS = "Outros";
 
@@ -33,7 +33,7 @@ public class DBSalario {
                     + _DATA_QUINZENA + " text, "
                     + _DATA_MES + " text, "
                     + _CONTAS + " text, "
-                    + _EMAILS + " text, "
+                    + _DIA_FECHAMENTO + " text, "
                     + _OUTROS + " text "
                     + ");";
 
@@ -44,7 +44,7 @@ public class DBSalario {
         public String SalarioMes = "";
         public String DataQuinzena = "";
         public String DataMes = "";
-        public String Emails = "";
+        public String DiaFechamento = "";
         public String Contas = "";
         public String Outros = "";
     }
@@ -73,7 +73,7 @@ public class DBSalario {
         @Override
         public void onCreate(SQLiteDatabase db) {
             db.execSQL(DATABASE_CREATE);
-            db.execSQL("insert into salario (Id,SalarioTotal,SalarioQuinzena,SalarioMes,DataQuinzena,DataMes,Emails,Contas,Outros) values (1,\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\");");
+            db.execSQL("insert into salario (Id,SalarioTotal,SalarioQuinzena,SalarioMes,DataQuinzena,DataMes,DiaFechamento,Contas,Outros) values (1,\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\");");
 
         }
 
@@ -108,7 +108,7 @@ public class DBSalario {
         args.put(_SALARIO_MES, Fields.SalarioMes);
         args.put(_DATA_QUINZENA, Fields.DataQuinzena);
         args.put(_DATA_MES, Fields.DataMes);
-        args.put(_EMAILS, Fields.Emails);
+        args.put(_DIA_FECHAMENTO, Fields.DiaFechamento);
         args.put(_CONTAS, Fields.Contas);
         args.put(_OUTROS, Fields.Outros);
         return args;
@@ -123,7 +123,7 @@ public class DBSalario {
             Fields.SalarioMes = c.getString(i++);
             Fields.DataQuinzena = c.getString(i++);
             Fields.DataMes = c.getString(i++);
-            Fields.Emails = c.getString(i++);
+            Fields.DiaFechamento = c.getString(i++);
             Fields.Contas = c.getString(i++);
             Fields.Outros = c.getString(i++);
         }
@@ -159,7 +159,7 @@ public class DBSalario {
                                 _SALARIO_MES,
                                 _DATA_QUINZENA,
                                 _DATA_MES,
-                                _EMAILS,
+                                _DIA_FECHAMENTO,
                                 _CONTAS,
                                 _OUTROS},
                         Where,

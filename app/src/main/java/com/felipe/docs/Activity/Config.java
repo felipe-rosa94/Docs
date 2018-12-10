@@ -12,7 +12,7 @@ import com.felipe.docs.R;
 
 public class Config extends AppCompatActivity {
 
-    private EditText etTotal, etQuinzena, etMes, etDataQuinzena, etDataMes;
+    private EditText etQuinzena, etMes, etDataQuinzena, etDataMes, etFechamento;
     private Button btnSalvar;
     private DBSalario dbSalario;
 
@@ -31,29 +31,32 @@ public class Config extends AppCompatActivity {
 
     private void iniciar() {
         dbSalario = new DBSalario(getBaseContext());
-        etTotal = findViewById(R.id.et_salario_total);
         etQuinzena = findViewById(R.id.et_salario_quinzena);
         etMes = findViewById(R.id.et_salario_mes);
         etDataQuinzena = findViewById(R.id.et_data_quinzena);
         etDataMes = findViewById(R.id.et_data_mes);
+        etFechamento = findViewById(R.id.et_fechamento);
         btnSalvar = findViewById(R.id.btn_salvar);
     }
 
     private void gravar() {
         dbSalario.open();
-        if (!etTotal.getText().toString().equals("")){
-            dbSalario.Fields.SalarioTotal = etTotal.getText().toString();
+        if (!etMes.getText().toString().equals("")) {
             dbSalario.Fields.SalarioQuinzena = etQuinzena.getText().toString();
             dbSalario.Fields.SalarioMes = etMes.getText().toString();
             dbSalario.Fields.DataQuinzena = etDataQuinzena.getText().toString();
             dbSalario.Fields.DataMes = etDataMes.getText().toString();
+            dbSalario.Fields.DiaFechamento = etFechamento.getText().toString();
+            dbSalario.Fields.SalarioTotal = String.valueOf(Double.parseDouble(etMes.getText().toString()) + Double.parseDouble(etQuinzena.getText().toString()));
+
         } else {
-            etTotal.setError("Preencha um salário");
+            etMes.setError("Preencha um salário");
             return;
         }
+
         dbSalario.update(1);
         dbSalario.close();
-        startActivity(new Intent(getBaseContext(), Financas.class));
+        startActivity(new Intent(getBaseContext(), Etapa2.class));
         finish();
     }
 }
