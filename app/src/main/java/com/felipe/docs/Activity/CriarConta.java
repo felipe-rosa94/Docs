@@ -166,9 +166,7 @@ public class CriarConta extends AppCompatActivity {
                 cc.setDescricao(etDescricao.getText().toString() + " (" + String.valueOf(i) + "/" + etParcela.getText().toString() + ")");
 
                 databaseReference.child(dbConfig.Fields.Nome + "(" + String.valueOf(mes) + "-" + String.valueOf(ano) + ")").child(util.key()).setValue(cc);
-
             }
-
         }
 
         dbConfig.close();
