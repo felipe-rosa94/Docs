@@ -1,6 +1,7 @@
 package com.felipe.docs.Activity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import com.felipe.docs.Banco.DBConfig;
 import com.felipe.docs.R;
+import com.felipe.docs.Util.Servico;
 
 public class Main extends AppCompatActivity {
 
@@ -64,6 +66,17 @@ public class Main extends AppCompatActivity {
             startActivity(new Intent(getBaseContext(), Login.class));
             finish();
         }
+
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                startForegroundService(new Intent(getBaseContext(), Servico.class));
+            } else {
+                startService(new Intent(getBaseContext(), Servico.class));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override

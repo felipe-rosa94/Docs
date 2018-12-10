@@ -34,7 +34,9 @@
         <activity android:name=".Activity.Etapa2" />
         <activity android:name=".Activity.Config" />
         <activity android:name=".Activity.CriarConta" />
-        <activity android:name=".Activity.Financas"></activity>
+        <activity android:name=".Activity.Financas"/>
+        <service android:name=".Util.Servico"/>
+
     </application>
 
 </manifest>

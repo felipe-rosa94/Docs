@@ -1,12 +1,11 @@
 package com.felipe.docs.Activity;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.felipe.docs.Adapter.FinancasAdapter;
 import com.felipe.docs.Banco.DBConfig;
@@ -19,7 +18,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -77,7 +75,12 @@ public class Financas extends AppCompatActivity {
     }
 
     private void Dados() {
-        databaseReference.child(dbConfig.Fields.Nome).addValueEventListener(new ValueEventListener() {
+
+        String atual = util.data();
+        atual = atual.substring(3, 10);
+        atual = atual.replace("/", "-");
+
+        databaseReference.child(dbConfig.Fields.Nome + "(" + atual + ")").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 contas.clear();
@@ -111,8 +114,8 @@ public class Financas extends AppCompatActivity {
             String atual = util.data();
             atual = atual.substring(3, 10);
             if (atual.equals(data) && dia < fechamento) {
-                valorTotal = valorTotal - (valor / parcela);
-                valorTotalGasto = valorTotalGasto + (valor / parcela);
+                valorTotal = valorTotal - (valor);
+                valorTotalGasto = valorTotalGasto + (valor);
             }
         }
         tvRestante.setText(String.valueOf(valorTotal));

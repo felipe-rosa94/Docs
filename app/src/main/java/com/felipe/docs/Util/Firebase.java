@@ -1,4 +1,4 @@
-package com.felipe.docs;
+package com.felipe.docs.Util;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

@@ -12,7 +12,7 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 
 import com.felipe.docs.Banco.DBConfig;
-import com.felipe.docs.Firebase;
+import com.felipe.docs.Util.Firebase;
 import com.felipe.docs.Model.CriaContaFinaceira;
 import com.felipe.docs.R;
 import com.felipe.docs.Util.Util;
@@ -32,6 +32,9 @@ public class CriarConta extends AppCompatActivity {
     private DBConfig dbConfig;
     private static Util util;
     private static ProgressDialog pd;
+
+    private static FirebaseDatabase firebaseDatabase;
+    private static DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +71,10 @@ public class CriarConta extends AppCompatActivity {
         activity = CriarConta.this;
         pd = new ProgressDialog(this);
 
+        FirebaseApp.initializeApp(this);
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+
         etDescricao = findViewById(R.id.et_descricao_conta);
         etParcela = findViewById(R.id.et_parcelas);
         etValorTotal = findViewById(R.id.et_valor_total_conta);
@@ -91,21 +98,30 @@ public class CriarConta extends AppCompatActivity {
         CriaContaFinaceira cc = new CriaContaFinaceira();
 
         if (etDescricao.getText().length() > 0) {
-            cc.setDescricao(etDescricao.getText().toString());
+            if (rbCredito.isChecked()) {
+                cc.setDescricao(etDescricao.getText().toString() + " (1/" + etParcela.getText().toString() + ")");
+            } else {
+                cc.setDescricao(etDescricao.getText().toString());
+            }
         } else {
             etDescricao.setError("Preencha a descrição do gasto.");
-        }
-
-        if (etValorTotal.getText().length() > 0) {
-            cc.setValorTotal(Double.parseDouble(etValorTotal.getText().toString()));
-        } else {
-            etValorTotal.setError("Preencha o valor");
         }
 
         if (rbDebito.isChecked()) {
             cc.setTipoPagamento("Débito");
         } else {
             cc.setTipoPagamento("Crébito");
+        }
+
+        if (etValorTotal.getText().length() > 0) {
+            if (rbCredito.isChecked()) {
+                cc.setValorTotal(Double.parseDouble(etValorTotal.getText().toString()) / Double.parseDouble(etParcela.getText().toString()));
+            } else {
+                cc.setValorTotal(Double.parseDouble(etValorTotal.getText().toString()));
+            }
+
+        } else {
+            etValorTotal.setError("Preencha o valor");
         }
 
         cc.setObservacao(etObservacao.getText().toString());
@@ -120,7 +136,41 @@ public class CriarConta extends AppCompatActivity {
         cc.setData(util.dataHora());
 
         dbConfig.open();
-        Firebase.Salvar(dbConfig.Fields.Nome, util.key(), cc, 0);
+
+        String atual = util.data();
+        atual = atual.substring(3, 10);
+        atual = atual.replace("/", "-");
+
+        Firebase.Salvar(dbConfig.Fields.Nome + "(" + atual + ")", util.key(), cc, 0);
+
+
+        if (rbCredito.isChecked()) {
+            double total = Double.parseDouble(etValorTotal.getText().toString());
+            int parcelas = Integer.parseInt(etParcela.getText().toString());
+            int i = 1;
+
+            cc.setValorTotal(total / parcelas);
+
+            String array[] = atual.split("[-]");
+            int mes = Integer.parseInt(array[0]);
+            int ano = Integer.parseInt(array[1]);
+
+            while (i < parcelas) {
+                mes++;
+                if (mes > 12) {
+                    ano++;
+                    mes = 0;
+                    mes++;
+                }
+                i++;
+                cc.setDescricao(etDescricao.getText().toString() + " (" + String.valueOf(i) + "/" + etParcela.getText().toString() + ")");
+
+                databaseReference.child(dbConfig.Fields.Nome + "(" + String.valueOf(mes) + "-" + String.valueOf(ano) + ")").child(util.key()).setValue(cc);
+
+            }
+
+        }
+
         dbConfig.close();
     }
 
