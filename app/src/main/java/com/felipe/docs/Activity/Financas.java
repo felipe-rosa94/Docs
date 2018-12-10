@@ -98,7 +98,6 @@ public class Financas extends AppCompatActivity {
         });
     }
 
-
     private void TrocarValor(String tipo, double valor, String data, int parcela) {
         dbSalario.open();
         if (tipo.equals("Débito")) {
